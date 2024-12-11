@@ -141,7 +141,7 @@ const App = () => {
   return (
     <main className="w-full h-screen bg-red-400 flex justify-center items-center bg-hero-pattern bg-no-repeat bg-cover flex-col gap-5 relative">
       <>
-        <span className="text-white text-7xl md:text-8xl bg-white/30 rounded-full p-5 font-bold">
+        <span className="text-white text-5xl md:text-8xl bg-white/30 rounded-full p-5 font-bold">
           ¡Ruleta Navideña!
         </span>
         <div className="flex flex-col sm:flex-row  w-full justify-center items-center gap-3 pb-3 sm:pb-0">
