@@ -12,9 +12,11 @@ import Music from "../../assets/music/music.mp3";
 const Roulette = ({
   loggedUser,
   users,
+  getUserList,
 }: {
   loggedUser: string;
   users?: User[];
+  getUserList: () => void;
 }) => {
   const ruletaRef = useRef<HTMLImageElement>(null);
   const audioRef = useRef(new Audio(Music));
@@ -30,15 +32,43 @@ const Roulette = ({
     { name: "Alejandra", message: "Mensaje persaonalizado de alejandra" },
     { name: "Santiago", message: "Mensaje persaonalizado de santiago" },
     { name: "Luisa", message: "Mensaje persaonalizado de luisa" },
-    { name: "Sebastian", message: "Mensaje persaonalizado de sebastian" },
+    {
+      name: "Sebastian",
+      message: `
+      Hola, querido amigo secreto:
+Soy una persona que disfruta las cosas que nos hacen sentir bien: un buen libro que te atrape, ropa cómoda que te haga ver y sentir genial, y, por supuesto, algo rico para disfrutar al paladar. Este año tengo un pequeño detalle: Estoy con un pie que necesita descanso y paciencia, así que cualquier regalo que me ayude a pasar el rato será más que bienvenido. 😉
+¡Confío en que tu creatividad dará en el clavo! 🎁
+      `,
+    },
     { name: "Andres", message: "Mensaje persaonalizado de andres" },
-    { name: "Ivan", message: "Mensaje persaonalizado de ivan" },
+    {
+      name: "Ivan",
+      message: `
+Hola, querido amigo secreto:
+Soy alguien que disfruta de los videojuegos y la tecnología. También me encanta pasar tiempo viendo películas y compartiendo momentos con amigos o familia. Me gustan los detalles sencillos y prácticos, y realmente aprecio cualquier cosa que venga con cariño.
+No hay nada que quiera evitar, así que confío en tu creatividad para sorprenderme. ¡Gracias desde ya por el regalo! 😊
+      `,
+    },
     { name: "Alejandra", message: "Mensaje persaonalizado de alejandra" },
     { name: "Santiago", message: "Mensaje persaonalizado de santiago" },
     { name: "Luisa", message: "Mensaje persaonalizado de Luisa" },
-    { name: "Sebastian", message: "Mensaje persaonalizado de ivan" },
+    {
+      name: "Sebastian",
+      message: `
+      Hola, querido amigo secreto:
+Soy una persona que disfruta las cosas que nos hacen sentir bien: un buen libro que te atrape, ropa cómoda que te haga ver y sentir genial, y, por supuesto, algo rico para disfrutar al paladar. Este año tengo un pequeño detalle: Estoy con un pie que necesita descanso y paciencia, así que cualquier regalo que me ayude a pasar el rato será más que bienvenido. 😉
+¡Confío en que tu creatividad dará en el clavo! 🎁
+      `,
+    },
     { name: "Andres", message: "Mensaje persaonalizado de Andres" },
-    { name: "Ivan", message: "Mensaje persaonalizado de ivan" },
+    {
+      name: "Ivan",
+      message: `
+      Hola, querido amigo secreto:
+      Soy alguien que disfruta de los videojuegos y la tecnología. También me encanta pasar tiempo viendo películas y compartiendo momentos con amigos o familia. Me gustan los detalles sencillos y prácticos, y realmente aprecio cualquier cosa que venga con cariño.
+      No hay nada que quiera evitar, así que confío en tu creatividad para sorprenderme. ¡Gracias desde ya por el regalo! 😊
+            `,
+    },
   ]);
 
   const ResultRuleta = async () => {
@@ -53,7 +83,9 @@ const Roulette = ({
         (user) => user.name.toUpperCase() === jugadorSelecionado.toUpperCase()
       )?.id;
 
-     const jugadorGanador =  jugadores.find((jugador)=>jugador.name === jugadorSelecionado)
+      const jugadorGanador = jugadores.find(
+        (jugador) => jugador.name === jugadorSelecionado
+      );
 
       await addDoc(votesCollectionRef, {
         voter: voterId, // ID del usuario que vota
@@ -64,10 +96,6 @@ const Roulette = ({
       MySwal.fire({
         title: jugadorGanador?.name,
         text: jugadorGanador?.message,
-        imageUrl: "https://unsplash.it/400/200",
-        imageWidth: 400,
-        imageHeight: 200,
-        imageAlt: "Custom image",
       }).then(() => {
         setDataRuleta(ultimoJugadorSelecionado * circuloPorJugador);
         window.location.reload();
@@ -77,6 +105,8 @@ const Roulette = ({
 
   const animarEvent = () => {
     handlePlaySound();
+    getUserList();
+
     const grados_circulo = 360;
     let valor_aleatorio = Math.floor(Math.random() * jugadores.length);
 

@@ -41,7 +41,6 @@ const App = () => {
           return { ...user, vote };
         })
       );
-
       setUsers(usersWithVotes);
       setIsUsersLoaded(true); // Marcar que los usuarios están cargados
     } catch (error) {
@@ -102,15 +101,15 @@ const App = () => {
             left top
             no-repeat
           `,
-          preConfirm: async (userInput) => {
-            const filterUser = users.find((user) => user.name === userInput);
+          preConfirm: async (userInput:string) => {
+            const filterUser = users.find((user) => user.name.toUpperCase() === userInput.toUpperCase());
             if (!filterUser) {
               return MySwal.showValidationMessage(
                 `No te hemos encontrado, ¡intenta otro nombre!`
               );
             }
-            localStorage.setItem("me", userInput);
-            setLoggedUser(userInput);
+            localStorage.setItem("me", userInput.toLowerCase());
+            setLoggedUser(userInput.toLowerCase());
           },
         });
       } else {
@@ -145,7 +144,7 @@ const App = () => {
           ¡Ruleta Navideña!
         </span>
         <div className="flex flex-col sm:flex-row  w-full justify-center items-center gap-3 pb-3 sm:pb-0">
-          <Roulette loggedUser={loggedUser} users={users} />
+          <Roulette loggedUser={loggedUser} users={users} getUserList={getUserList} />
           {userLogged?.vote && (
             <div className="w-60 bg-white py-5 rounded-2xl sm:rounded-r-2xl mt-0 sm:-mt-10 flex justify-center text-center px-4">
               <h3 className="text-2xl">Tu Amigo secreto:</h3>
