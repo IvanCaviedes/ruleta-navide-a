@@ -103,29 +103,24 @@ const Roulette = ({
   };
 
   const animarEvent = () => {
-    handlePlaySound();
+    // handlePlaySound();
     const grados_circulo = 360;
     let valor_aleatorio = Math.floor(Math.random() * jugadores.length);
 
-    // Filtrar jugadores que no han sido votados o no están en el campo `voter`
     const jugadoresSinVotos = users
       ?.filter((user) => {
         if (user.name.toUpperCase() === loggedUser.toUpperCase()) {
           return false;
         }
-        if (!user.vote) {
-          return true;
-        }
-        const apareceComoVoter = users.some((u) => u.vote?.voter === user.id);
-        return !apareceComoVoter;
+        return true;
+      })
+      .filter((user) => {
+        return !users.find((u) => u.vote?.voter === user.id);
       })
       .map((user) => user.name.toUpperCase());
-
     let isValidJugador = jugadoresSinVotos?.includes(
       jugadores[valor_aleatorio].name.toLocaleUpperCase()
     );
-
-    // Recalcular hasta encontrar un jugador válido
     while (!isValidJugador) {
       valor_aleatorio = Math.floor(Math.random() * jugadores.length);
       isValidJugador = jugadoresSinVotos?.includes(
@@ -133,14 +128,10 @@ const Roulette = ({
       );
     }
 
-    // Cálculo para la animación de la ruleta
     const circuloPorJugador = grados_circulo / jugadores.length;
     const giro_ruleta = circuloPorJugador * valor_aleatorio;
     const sumaGiros = grados_circulo * 10 + giro_ruleta;
     setJugadorSelecionado(jugadores[valor_aleatorio].name);
-
-    console.log({ jugador: jugadores[valor_aleatorio] });
-
     setDataRuleta(ultimoJugadorSelecionado * circuloPorJugador);
     setAminatedRuleta(true);
 
