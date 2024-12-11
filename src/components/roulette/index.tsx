@@ -8,6 +8,7 @@ import { db } from "../../config/firebase";
 const MySwal = withReactContent(Swal);
 
 import Music from "../../assets/music/music.mp3";
+import Ganar from "../../assets/music/ganar.mp3";
 
 const Roulette = ({
   loggedUser,
@@ -69,6 +70,21 @@ const Roulette = ({
     },
   ]);
 
+  useEffect(() => {
+    const handlePlaySound = () => {
+      audioRef.current.volume = 0.2;
+      audioRef.current.play();
+    };
+
+    // Agregar el evento al document
+    document.addEventListener("click", handlePlaySound);
+
+    // Cleanup: eliminar el evento cuando el componente se desmonte
+    return () => {
+      document.removeEventListener("click", handlePlaySound);
+    };
+  }, []);
+
   const ResultRuleta = async () => {
     if (ruletaRef.current) {
       ruletaRef.current.classList.remove("img-ruleta");
@@ -91,6 +107,9 @@ const Roulette = ({
         timestamp: Timestamp.now(),
       });
 
+      const ganar = new Audio(Ganar);
+      ganar.play();
+
       MySwal.fire({
         title: jugadorGanador?.name,
         text: jugadorGanador?.message,
@@ -103,7 +122,6 @@ const Roulette = ({
   };
 
   const animarEvent = () => {
-    handlePlaySound();
     const grados_circulo = 360;
     let valor_aleatorio = Math.floor(Math.random() * jugadores.length);
 
@@ -168,13 +186,8 @@ const Roulette = ({
   if (isLoading) {
     return <div>Cargando...</div>; // Muestra un mensaje de carga si los datos no están listos
   }
-
-  const handlePlaySound = () => {
-    audioRef.current.volume = 0.2;
-    audioRef.current.play();
-  };
   return (
-    <div className="ms:w-[500px] w-[450px] text-black bg-white flex justify-center items-center px-10 py-5 sm:p-3 overflow-hidden rounded-3xl flex-col gap-3">
+    <div className="ms:w-[500px] w-[450px] text-black bg-white shadow-2xl flex justify-center items-center px-10 py-5 sm:p-3 overflow-hidden rounded-3xl flex-col gap-3">
       <div className="flex flex-col items-center gap-2 -mb-10 z-20">
         <div className="text-red-950 text-6xl">
           <span>&#8595;</span>
