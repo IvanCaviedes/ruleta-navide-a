@@ -1,0 +1,21 @@
+@import url('https://fonts.googleapis.com/css2?family=Mountains+of+Christmas:wght@400;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+*{
+  font-family: "Mountains of Christmas", serif;
+}
+
+.img-ruleta{
+  transition: all 4s ease;
+  overflow-x: hidden
+}
+
+.swal2-input::placeholder {
+  color: #6b7280; /* Un tono gris más oscuro */
+  opacity: 1; /* Asegura que sea completamente visible */
+  font-style: italic; /* Opcional: Para diferenciarlo del texto normal */
+}
