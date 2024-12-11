@@ -12,11 +12,9 @@ import Music from "../../assets/music/music.mp3";
 const Roulette = ({
   loggedUser,
   users,
-  getUserList,
 }: {
   loggedUser: string;
   users?: User[];
-  getUserList: () => void;
 }) => {
   const ruletaRef = useRef<HTMLImageElement>(null);
   const audioRef = useRef(new Audio(Music));
@@ -29,45 +27,45 @@ const Roulette = ({
   const votesCollectionRef = collection(db, "vote");
 
   const [jugadores] = useState([
-    { name: "Alejandra", message: "Mensaje persaonalizado de alejandra" },
-    { name: "Santiago", message: "Mensaje persaonalizado de santiago" },
-    { name: "Luisa", message: "Mensaje persaonalizado de luisa" },
+    { name: "Alejandra", message: `` },
+    { name: "Santiago", message: `` },
+    { name: "Luisa", message: `` },
     {
       name: "Sebastian",
       message: `
       Hola, querido amigo secreto:
-Soy una persona que disfruta las cosas que nos hacen sentir bien: un buen libro que te atrape, ropa cómoda que te haga ver y sentir genial, y, por supuesto, algo rico para disfrutar al paladar. Este año tengo un pequeño detalle: Estoy con un pie que necesita descanso y paciencia, así que cualquier regalo que me ayude a pasar el rato será más que bienvenido. 😉
-¡Confío en que tu creatividad dará en el clavo! 🎁
+      Soy una persona que disfruta las cosas que nos hacen sentir bien: un buen libro que te atrape, ropa cómoda que te haga ver y sentir genial, y, por supuesto, algo rico para disfrutar al paladar. Este año tengo un pequeño detalle: Estoy con un pie que necesita descanso y paciencia, así que cualquier regalo que me ayude a pasar el rato será más que bienvenido. 😉
+      ¡Confío en que tu creatividad dará en el clavo! 🎁
       `,
     },
-    { name: "Andres", message: "Mensaje persaonalizado de andres" },
-    {
-      name: "Ivan",
-      message: `
-Hola, querido amigo secreto:
-Soy alguien que disfruta de los videojuegos y la tecnología. También me encanta pasar tiempo viendo películas y compartiendo momentos con amigos o familia. Me gustan los detalles sencillos y prácticos, y realmente aprecio cualquier cosa que venga con cariño.
-No hay nada que quiera evitar, así que confío en tu creatividad para sorprenderme. ¡Gracias desde ya por el regalo! 😊
-      `,
-    },
-    { name: "Alejandra", message: "Mensaje persaonalizado de alejandra" },
-    { name: "Santiago", message: "Mensaje persaonalizado de santiago" },
-    { name: "Luisa", message: "Mensaje persaonalizado de Luisa" },
-    {
-      name: "Sebastian",
-      message: `
-      Hola, querido amigo secreto:
-Soy una persona que disfruta las cosas que nos hacen sentir bien: un buen libro que te atrape, ropa cómoda que te haga ver y sentir genial, y, por supuesto, algo rico para disfrutar al paladar. Este año tengo un pequeño detalle: Estoy con un pie que necesita descanso y paciencia, así que cualquier regalo que me ayude a pasar el rato será más que bienvenido. 😉
-¡Confío en que tu creatividad dará en el clavo! 🎁
-      `,
-    },
-    { name: "Andres", message: "Mensaje persaonalizado de Andres" },
+    { name: "Andres", message: `` },
     {
       name: "Ivan",
       message: `
       Hola, querido amigo secreto:
       Soy alguien que disfruta de los videojuegos y la tecnología. También me encanta pasar tiempo viendo películas y compartiendo momentos con amigos o familia. Me gustan los detalles sencillos y prácticos, y realmente aprecio cualquier cosa que venga con cariño.
       No hay nada que quiera evitar, así que confío en tu creatividad para sorprenderme. ¡Gracias desde ya por el regalo! 😊
-            `,
+      `,
+    },
+    { name: "Alejandra", message: `` },
+    { name: "Santiago", message: `` },
+    { name: "Luisa", message: `` },
+    {
+      name: "Sebastian",
+      message: `
+      Hola, querido amigo secreto:
+      Soy una persona que disfruta las cosas que nos hacen sentir bien: un buen libro que te atrape, ropa cómoda que te haga ver y sentir genial, y, por supuesto, algo rico para disfrutar al paladar. Este año tengo un pequeño detalle: Estoy con un pie que necesita descanso y paciencia, así que cualquier regalo que me ayude a pasar el rato será más que bienvenido. 😉
+      ¡Confío en que tu creatividad dará en el clavo! 🎁
+      `,
+    },
+    { name: "Andres", message: `` },
+    {
+      name: "Ivan",
+      message: `
+      Hola, querido amigo secreto:
+      Soy alguien que disfruta de los videojuegos y la tecnología. También me encanta pasar tiempo viendo películas y compartiendo momentos con amigos o familia. Me gustan los detalles sencillos y prácticos, y realmente aprecio cualquier cosa que venga con cariño.
+      No hay nada que quiera evitar, así que confío en tu creatividad para sorprenderme. ¡Gracias desde ya por el regalo! 😊
+      `,
     },
   ]);
 
@@ -96,6 +94,7 @@ Soy una persona que disfruta las cosas que nos hacen sentir bien: un buen libro 
       MySwal.fire({
         title: jugadorGanador?.name,
         text: jugadorGanador?.message,
+        imageAlt: "Custom image",
       }).then(() => {
         setDataRuleta(ultimoJugadorSelecionado * circuloPorJugador);
         window.location.reload();
@@ -105,8 +104,6 @@ Soy una persona que disfruta las cosas que nos hacen sentir bien: un buen libro 
 
   const animarEvent = () => {
     handlePlaySound();
-    getUserList();
-
     const grados_circulo = 360;
     let valor_aleatorio = Math.floor(Math.random() * jugadores.length);
 
@@ -186,7 +183,7 @@ Soy una persona que disfruta las cosas que nos hacen sentir bien: un buen libro 
     audioRef.current.play();
   };
   return (
-    <div className="ms:w-[500px] w-[450px] text-black bg-white flex justify-center items-center px-10 py-5 sm:p-3 overflow-hidden rounded-3xl bg-opacity-70 flex-col gap-3">
+    <div className="ms:w-[500px] w-[450px] text-black bg-white flex justify-center items-center px-10 py-5 sm:p-3 overflow-hidden rounded-3xl flex-col gap-3">
       <div className="flex flex-col items-center gap-2 -mb-10 z-20">
         <div className="text-red-950 text-6xl">
           <span>&#8595;</span>
