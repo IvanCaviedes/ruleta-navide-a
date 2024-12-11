@@ -103,7 +103,7 @@ const Roulette = ({
   };
 
   const animarEvent = () => {
-    // handlePlaySound();
+    handlePlaySound();
     const grados_circulo = 360;
     let valor_aleatorio = Math.floor(Math.random() * jugadores.length);
 
