@@ -72,7 +72,7 @@ const Roulette = ({
 
   useEffect(() => {
     const handlePlaySound = () => {
-      audioRef.current.volume = 0.2;
+      audioRef.current.volume = 0.1;
       audioRef.current.play();
     };
 
