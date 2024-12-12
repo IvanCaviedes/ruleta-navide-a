@@ -1,12 +1,12 @@
 export default [
   {
     "name": "Alejandra",
-    "message": "Hola, querido amigo secreto:Me encanta la naturaleza y disfrutar de paseos al aire libre. También soy fan de los detalles útiles y prácticos, como algo para organizar mi espacio o herramientas para mis hobbies. Espero con ansias tu sorpresa. ¡Gracias por tu esfuerzo! 🌟"
+    "message": "¡Hola, querido amigo secreto! 🎅✨ Quiero contarte que me encantan los pines divertidos asi como los de dibujos animados, y me gusta el chocolate blanco 🍫🤍. Creo que podrían ser una súper idea de regalo, osea weon 🎁. Estoy emocionada por esta experiencia y seguro que lo que elijas será genial. si no lo boto ¡Gracias por la magia navideña! jo-jo-jo feli navida y propero año nevo🎄🎉"
   },
-  { "name": "Santiago", "message": "Hola, querido amigo secreto: Me encanta pasar tiempo al aire libre haciendo senderismo y camping. También soy un gran fan de la música clásica y me gusta cocinar platos nuevos. ¡Un regalo que me permita disfrutar de cualquiera de estas pasiones sería increíble! ️ ¡Gracias por tu atención!" },
+  { "name": "Santiago", "message": "No quiero nada" },
   {
     "name": "Luisa",
-    "message": "Hola, querido amigo secreto: Soy alguien a quien le gusta la música, leer historias fascinantes y disfrutar de una buena taza de café. Cualquier detalle que combine con estas pasiones será ideal. ¡Gracias por ser tan creativo! 🎶📚☕"
+    "message": "Querido amigo secreto! 🎅🎁 Quiero contarte que me gusta mucho Harry Potter. Así que, si buscas ideas, cualquier cosa relacionada con eso me hará muy feliz."
   },
   {
     "name": "Sebastian",
@@ -14,7 +14,7 @@ export default [
   },
   {
     "name": "Andres",
-    "message": "Hola, querido amigo secreto: Adoro los retos mentales y cosas que me hagan pensar, como rompecabezas o libros interesantes. También me encanta todo lo relacionado con la cocina, así que no dudes en sorprenderme con algo en esta línea. ¡Gracias! 🍳🧩"
+    "message": "Querido santa he sido un niño 💕 bueno todo el año por eso quiero pedirte de navidad algo cool que tenga que ver con el espacio o las estrellas o harry Potter bien cool la buena pal que le salga 😎😉💖🫠"
   },
   {
     "name": "Ivan",
