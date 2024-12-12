@@ -138,8 +138,7 @@ const Roulette = ({
 
       MySwal.fire({
         title: jugadorGanador?.name,
-        text: jugadorGanador?.message,
-        imageAlt: "Custom image",
+        text: jugadorGanador?.message
       }).then(() => {
         setDataRuleta(ultimoJugadorSelecionado * circuloPorJugador);
       });
