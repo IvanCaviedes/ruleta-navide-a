@@ -1,12 +1,15 @@
 import { useEffect, useState } from "react";
 import { collection, getDocs, query, where } from "firebase/firestore";
+import { Tooltip } from "react-tooltip";
+
+import withReactContent from "sweetalert2-react-content";
+import Swal from "sweetalert2";
+const MySwal = withReactContent(Swal);
+
 import { db } from "./config/firebase";
 import Roulette from "./components/roulette";
-import Swal from "sweetalert2";
-import withReactContent from "sweetalert2-react-content";
 import { User, Vote } from "./assets/types";
-
-const MySwal = withReactContent(Swal);
+import JugadoresData from "./data/jugadores";
 
 const App = () => {
   const userCollectionRef = collection(db, "users");
@@ -135,6 +138,12 @@ const App = () => {
   }
 
   const userLogged = users.find((user) => user.name == loggedUser);
+  const userVoted = users.find((user) => {
+    if (!userLogged) {
+      return false;
+    }
+    return userLogged.vote?.voter === user.id;
+  });
 
   return (
     <main className="w-full h-screen bg-red-400 flex justify-center items-center bg-hero-pattern bg-no-repeat bg-cover flex-col gap-5 relative">
@@ -143,17 +152,45 @@ const App = () => {
           ¡Ruleta Navideña!
         </span>
         <div className="flex flex-col sm:flex-row  w-full justify-center items-center gap-3 pb-3 sm:pb-0">
-          <Roulette loggedUser={loggedUser} users={users} />
+          <Roulette
+            loggedUser={loggedUser}
+            users={users}
+            getUserList={getUserList}
+          />
           {userLogged?.vote && (
-            <div className="w-60 bg-white py-5 rounded-2xl sm:rounded-r-2xl mt-0 sm:-mt-10 flex justify-center text-center px-4">
-              <h3 className="text-2xl">Tu Amigo secreto:</h3>
-              <span className="text-3xl font-bold">
-                {
-                  users.find((user) => {
-                    return userLogged.vote?.voter === user.id;
-                  })?.name
-                }
+            <div className="w-auto bg-white py-5 rounded-2xl sm:rounded-r-2xl mt-0 sm:-mt-10 flex justify-center text-center px-2 items-center gap-1 relative">
+              <h3 className="text-xl">Tu Amigo secreto:</h3>
+              <span className="text-3xl font-bold capitalize">
+                {userVoted?.name}
               </span>
+              <div className="absolute top-1 right-2">
+                <a data-tooltip-id="info-user">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    x="0px"
+                    y="0px"
+                    width="20"
+                    height="20"
+                    viewBox="0 0 50 50"
+                  >
+                    <path d="M 25 2 C 12.309295 2 2 12.309295 2 25 C 2 37.690705 12.309295 48 25 48 C 37.690705 48 48 37.690705 48 25 C 48 12.309295 37.690705 2 25 2 z M 25 4 C 36.609824 4 46 13.390176 46 25 C 46 36.609824 36.609824 46 25 46 C 13.390176 46 4 36.609824 4 25 C 4 13.390176 13.390176 4 25 4 z M 25 11 A 3 3 0 0 0 22 14 A 3 3 0 0 0 25 17 A 3 3 0 0 0 28 14 A 3 3 0 0 0 25 11 z M 21 21 L 21 23 L 22 23 L 23 23 L 23 36 L 22 36 L 21 36 L 21 38 L 22 38 L 23 38 L 27 38 L 28 38 L 29 38 L 29 36 L 28 36 L 27 36 L 27 21 L 26 21 L 22 21 L 21 21 z"></path>
+                  </svg>
+                </a>
+              </div>
+
+              <Tooltip id="info-user" className="z-30">
+                <div className="w-60">
+                  <span>
+                    {
+                      JugadoresData.find(
+                        (jugador) =>
+                          jugador.name.toUpperCase() ===
+                          userVoted?.name.toUpperCase()
+                      )?.message
+                    }
+                  </span>
+                </div>{" "}
+              </Tooltip>
             </div>
           )}
         </div>
